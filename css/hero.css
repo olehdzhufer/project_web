@@ -1,0 +1,20 @@
+.hero__inner {
+  width: 540px;
+  padding-top: 120px;
+}
+
+.image_hero {
+  padding-top: 173px;
+  margin-left: 95px;
+}
+@media screen and (max-width: 768px) {
+  .image_hero {
+    display: none;
+  }
+}
+
+.hero_container {
+  display: flex;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
