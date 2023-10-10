@@ -1,0 +1,39 @@
+.card-body {
+  border: 2px solid black;
+  width: 235px;
+  height: 180px;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+li {
+  list-style: none;
+}
+
+.container {
+  max-width: 1100px;
+}
+
+.form {
+  display: flex;
+}
+
+.items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.part2 {
+  margin-left: 300px;
+}
