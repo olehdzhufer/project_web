@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- UUID library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.2.0/uuid.min.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1 class="text-title">Zoo</h1>
+      </div>
+    </header>
+    <form id="add_form" class="form">
+      <div class="container part1">
+        <h3>Create card</h3>
+        <div class="input">
+          <p>Name</p>
+          <label for="exampleInputEmail1" class="form-label"></label>
+          <input type="text" class="form-control" id="title_input" />
+        </div>
+        <div class="input">
+          <p>Price</p>
+          <label for="exampleInputPassword1" class="form-label"></label>
+          <input type="text" class="form-control" id="description_input" />
+        </div>
+        <button id="submit_button" type="submit" class="btn btn-primary">
+          Submit
+        </button>
+      </div>
+      <div class="container part2">
+        <ul id="items_container" class="items"></ul>
+      </div>
+    </form>
+    <section>
+      <div id="sort_form" class="sort">
+        <div class="container">
+          <h3>Sort by the most expensive animals</h3>
+          <input type="checkbox" id="mySwitch" />
+          <label for="mySwitch">On / Off </label>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="search_form">
+        <div class="container">
+          <h3>Find cards</h3>
+          <input id="find_input" type="text" class="form-control" />
+          <button id="find_button" type="button" class="btn btn-ptimary">
+            Find
+          </button>
+          <button id="cancel_find_button" type="button" class="btn btn-danger">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="count_form">
+        <div class="container">
+          <h3>Count total daily expenses</h3>
+          <button id="count_total_price" type="button" class="btn">
+            Count
+          </button>
+          <p id="total_count">
+            Total expenses:$<span id="total-amount">0</span>
+          </p>
+        </div>
+      </div>
+    </section>
+    <script type="module" src="js/index.js"></script>
+  </body>
+</html>
