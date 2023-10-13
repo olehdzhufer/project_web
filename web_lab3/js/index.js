@@ -12,16 +12,22 @@ const findInput = document.getElementById("find_input");
 const sortButton = document.getElementById("mySwitch");
 const countButton = document.getElementById("count_total_price");
 
-let animals = [];
+export let animals = [
+  {
+    id: 35,
+    title: "adsdsa",
+    desc: "asdwqe",
+  },
+];
 
+let id = 0;
 const addItem = ({ title, desc }) => {
-  const generatedId = uuid.v1();
-
   const newItem = {
-    id: generatedId,
+    id,
     title,
     desc,
   };
+  id++;
 
   animals.push(newItem);
 

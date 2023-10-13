@@ -37,3 +37,11 @@ li {
 .part2 {
   margin-left: 300px;
 }
+
+.card-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-left: 42%;
+}
