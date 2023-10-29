@@ -1,87 +1,152 @@
 import { animals } from "./index.js";
+import { getAllChairs, updateChair, deleteChair } from "./api.js";
 
-const titleInput = document.getElementById("title_input");
-const descriptionInput = document.getElementById("description_input");
+const name = document.getElementById("name");
+const price = document.getElementById("price");
 const itemsContainer = document.getElementById("items_container");
 const editNameInput = document.getElementById("edit_input_name");
 const editDescriptionInput = document.getElementById("edit_input_price");
 const saveButton = document.getElementById("save_form");
 const editCont = document.getElementById("edit_container");
+const itemContainer = document.getElementById("container part2");
 
 const getItemId = (id) => `${id}`;
 
-const itemTemplate = ({ id, title, desc }) => `
+const itemTemplate = ({ id, name, price }) => `
 <li id="${getItemId(id)}" class="list-group-item">
     <div class="card-body">
-        <h5 class="card-title">${title}</h5>
-        <p class="card-text">${desc}</p>
-        <button id="edit_button" type="button" class="card-button">
-            Edit
-        </button>
+        <h5 class="card-title">${name}</h5>
+        <p class="card-text">${price}</p>
+        <button id="edit_button" type="button" class="card-button">Edit
+</button>
+        <button id="delete" type="button" class="card-button">Delete</button>
     </div>
 </li>
 `;
 
 export const getInputValues = () => {
-  if (titleInput.value === "") {
+  const nameValue = name.value.trim(); // Видаляємо зайві пробіли з початку і кінця
+  const priceValue = price.value.trim();
+
+  if (nameValue === "") {
     alert("No input name");
-  } else if (descriptionInput.value === "") {
+    return null;
+  } else if (priceValue === "") {
     alert("No input price");
+    return null;
   } else {
     return {
-      title: titleInput.value,
-      description: descriptionInput.value,
+      name: nameValue,
+      price: priceValue,
     };
   }
 };
 
 export const clearInputs = () => {
-  titleInput.value = "";
+  name.value = "";
 
-  descriptionInput.value = "";
+  price.value = "";
 };
 
 export const renderItemsList = (items) => {
-  itemsContainer.innerHTML = "";
-
+  if (itemsContainer) {
+    itemsContainer.innerHTML = "";
+  }
   for (const item of items) {
     addItemToPage(item);
   }
 };
 
-let selected_id = 0;
-export const addItemToPage = ({ id, title, desc }) => {
-  itemsContainer.insertAdjacentHTML(
-    "afterbegin",
-    itemTemplate({ id, title, desc })
-  );
-  const edit_button = document.getElementById(`edit_button`);
-  edit_button.onclick = function () {
-    selected_id = id;
-    editCont.style.display = "flex";
-    fillInputs({ title, description });
-  };
-};
+export let chairs;
+export async function fetchAndRenderItems() {
+  try {
+    while (itemsContainer.firstChild) {
+      itemsContainer.removeChild(itemsContainer.firstChild);
+    }
 
-let fillInputs = ({ title, description }) => {
-  editNameInput.value = title;
-  editDescriptionInput.value = description;
-};
-
-saveButton.onclick = function () {
-  let editItem = animals.find((e) => e.id === selected_id);
-  if (editItem) {
-    const { title, description } = getEditedInputValues();
-    editItem.title = title;
-    editItem.desc = description;
+    chairs = await getAllChairs();
+    console.log(chairs);
+    renderItemsList(chairs);
+  } catch (error) {
+    console.error("Помилка при отриманні даних з сервера", error);
   }
-  renderItemsList(animals);
-  editCont.style.display = "none";
+}
+
+fetchAndRenderItems();
+
+let selected_id = 0;
+
+export const addItemToPage = ({ id, name, price }) => {
+  if (itemsContainer) {
+    itemsContainer.insertAdjacentHTML(
+      "afterbegin",
+      itemTemplate({ id, name, price })
+    );
+  }
+  console.log(id);
+  const edit_button = document.getElementById(`edit_button`);
+};
+if (itemContainer) {
+  itemContainer.addEventListener("click", (event) => {
+    if (event.target.id === "edit_button") {
+      const editButton = event.target;
+      const parentListItem = editButton.closest("li");
+      if (parentListItem) {
+        const carId = parentListItem.id;
+        localStorage["editForm"] = carId;
+        window.location.href = "edit_page.html";
+      }
+    } else if (event.target.id === "delete") {
+      const deleteButton = event.target;
+      const parentListItem = deleteButton.closest("li");
+      if (parentListItem) {
+        const chairIndex = parentListItem.id;
+        deleteChair(chairIndex).then(() => {
+          fetchAndRenderItems().then(() => {
+            while (itemsContainer.firstChild) {
+              itemsContainer.removeChild(itemsContainer.firstChild);
+            }
+            renderItemsList(chairs);
+          });
+        });
+      }
+    }
+  });
+}
+
+let fillInputs = ({ name, price }) => {
+  editNameInput.value = name;
+  editDescriptionInput.value = price;
 };
 
 const getEditedInputValues = () => {
   return {
-    title: editNameInput.value,
-    description: editDescriptionInput.value,
+    name: editNameInput.value,
+    price: editDescriptionInput.value,
   };
 };
+
+if (saveButton) {
+  saveButton.onclick = async function () {
+    try {
+      const chairIndex = localStorage.getItem("editForm");
+      console.log(chairIndex);
+      const { name, price } = getEditedInputValues();
+      const item = { name, price };
+      console.log(item);
+
+      // Оновлення елемента на сервері та оновлення списку
+      const response = await updateChair(chairIndex, item);
+
+      if (response.ok) {
+        // Оновлення успішне, оновіть список на сторінці
+        fetchAndRenderItems(); // Оновити список, запитавши дані з сервера
+        editCont.style.display = "none";
+      } else {
+        console.error("Помилка при оновленні об'єкта на сервері");
+      }
+    } catch (error) {
+      console.error("Помилка при оновленні об'єкта на сервері", error);
+    }
+  };
+}
