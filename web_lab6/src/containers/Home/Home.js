@@ -14,9 +14,12 @@ const data = [
 
 const Home = () => {
   return (
-    <div style={{backgroundColor: "#FFFFF0"}}>
+    <div>
       <SectionWrapper>
-        <img src={mainImage} style={{ width: "500px", height: "500px", borderRadius:"20px" }} />
+        <img
+          src={mainImage}
+          style={{ width: "500px", height: "500px", borderRadius: "20px" }}
+        />
         <div
           className="mainText"
           style={{ paddingTop: "100px", marginLeft: "50px" }}
@@ -36,7 +39,7 @@ const Home = () => {
           justifyContent: "center",
           display: "flex",
           paddingTop: "50px",
-          paddingBottom: "50px"
+          paddingBottom: "50px",
         }}
       >
         <button type="button" class="btn btn-secondary btn-lg">

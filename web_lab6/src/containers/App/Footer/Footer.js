@@ -10,25 +10,22 @@ import Icon, {
   FacebookOutlined,
   LinkedinOutlined,
   GooglePlusOutlined,
-  PlayCircleOutlined,
 } from "@ant-design/icons";
-import Logo from "../../../Icons/aaafe41896fc93e0342daaee35df3049.png"
+import Logo from "../../../Icons/aaafe41896fc93e0342daaee35df3049.png";
 const Footer = () => {
   return (
-    <div
-      className="bg-light"
-      style={{
-        display: "grid",
-        marginTop: "auto"
-      }}
-    >
+    <div className="bg-light">
       <Wrapper>
         <div>
           <h6>Branding Stuff</h6>
           <p>das</p>
         </div>
         <LogoWrapper>
-          <img src={Logo} style={{width:"80px", height:"80px"}}/>
+          <img
+            src={Logo}
+            style={{ width: "80px", height: "80px" }}
+            alt="Logo"
+          />
         </LogoWrapper>
         <IconWrapper>
           <IconBase component={FacebookOutlined} color="#1877F2" />

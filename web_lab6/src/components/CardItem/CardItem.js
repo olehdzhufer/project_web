@@ -1,5 +1,5 @@
 import { Card } from "antd";
-const { Meta } =  Card ;
+const { Meta } = Card;
 
 const CardItem = ({ title, imageSrc, price }) => (
   <Card
@@ -9,6 +9,7 @@ const CardItem = ({ title, imageSrc, price }) => (
   >
     <Meta title={title} />
     <p>${price}</p>
+    <button className="btn btn-secondary">View more</button>
   </Card>
 );
 
