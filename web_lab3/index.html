@@ -12,39 +12,9 @@
     <header>
       <div class="container">
         <h1 class="text-title">Zoo</h1>
+        <a href="create_page.html">create_animal</a>
       </div>
     </header>
-    <form id="add_form" class="form">
-      <div class="container part1">
-        <h3>Create card</h3>
-        <div class="input">
-          <p>Name</p>
-          <label for="exampleInputEmail1" class="form-label"></label>
-          <input
-            type="text"
-            class="form-control"
-            id="title_input"
-            placeholder="enter name"
-          />
-        </div>
-        <div class="input">
-          <p>Price</p>
-          <label for="exampleInputPassword1" class="form-label"></label>
-          <input
-            type="text"
-            class="form-control"
-            id="description_input"
-            placeholder="enter price"
-          />
-        </div>
-        <button id="submit_button" type="submit" class="btn btn-primary">
-          Submit
-        </button>
-      </div>
-      <div class="container part2">
-        <ul id="items_container" class="items"></ul>
-      </div>
-    </form>
     <section>
       <div id="sort_form" class="sort">
         <div class="container">
@@ -81,26 +51,9 @@
         </div>
       </div>
     </section>
-    <section>
-      <div class="edit_form">
-        <div class="edit_container" id="edit_container" style="display: none;" >
-          <div class="edit_cont">
-            <h3>Edit Animal</h3>
-            <div class="input_animal">
-              <div class="input_name">
-                <h5>Name</h5>
-                <input id="edit_input_name" type="text" />
-              </div>
-              <div class="input_price">
-                <h5>Price</h5>
-                <input id="edit_input_price" type="text" />
-              </div>
-            </div>
-            <button id="save_form" type="button" class="btn">Save</button>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div id ="container part2">
+      <ul id="items_container" class="items"></ul>
+    </div>
     <script type="module" src="js/index.js"></script>
   </body>
 </html>
