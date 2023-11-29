@@ -9,6 +9,7 @@ import { LinkingWrapper } from "./Navigation.styled";
 import Home from "../Home/Home";
 import Catalog from "../Catalog/Catalog";
 import Cart from "../Cart/Cart";
+import ItemPage from "../ItemPage/ItemPage"
 
 const Navigation = () => (
   <div >
@@ -16,20 +17,19 @@ const Navigation = () => (
       <LinkingWrapper>
         <ul>
           <li>
-            <NavLink to="/" end>
-              Головна
-            </NavLink>
+            <NavLink to="/" end>Home</NavLink>
           </li>
           <li>
-            <NavLink to="/catalog">Каталог</NavLink>
+            <NavLink to="/catalog">Catalog</NavLink>
           </li>
           <li>
-            <NavLink to="/cart">Кошик</NavLink>
+            <NavLink to="/cart">Cart</NavLink>
           </li>
         </ul>
         <Routes>
           <Route path="/catalog" element={<Catalog />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/itempage/:id" element={<ItemPage />} />
           <Route path="/" element={<Home />} />
         </Routes>
       </LinkingWrapper>

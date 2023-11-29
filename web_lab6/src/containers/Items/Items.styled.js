@@ -11,8 +11,3 @@ export const BodyWrapper = styled.div`
   min-height: 60vh;
   margin: 0;
 `;
-
-export const SearchAndFilterWrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
-`;
