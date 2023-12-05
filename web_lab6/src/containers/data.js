@@ -9,3 +9,5 @@ const data = [
     { id: 4,title: "dsf", image: model4, price: 4 },
 ];
 export default data
+
+
