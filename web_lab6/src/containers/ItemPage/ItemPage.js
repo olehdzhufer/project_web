@@ -1,31 +1,70 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, useParams} from 'react-router-dom';
-import data from "../data";
+import {getAllChairs} from "../api";
+import {Loader} from "../../components/Loader/Loading";
+import {useDispatch} from "react-redux";
+import {addToCart} from "../Redux/reducer/reducers"
 
 
 const ItemPage = () => {
     const {id} = useParams();
-    const selectedItem = data.find(item => item.id === parseInt(id));
+    const [selectedItem, setSelectedItem] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch();
+
+    const handleClick = () => {
+        const {title, image, price, id} = selectedItem;
+        const selectedCard = {title, image, price, id};
+        dispatch(addToCart(selectedCard))
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await getAllChairs();
+                const data = response.data;
+                const foundItem = data.find(item => item.id === parseInt(id));
+                setSelectedItem(foundItem);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, [id]);
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            setLoading(false)
+        }, 1000);
+        return () => clearTimeout(timeout)
+    }, []);
 
     return (
         <div>
-            {selectedItem ? (
-                <div>
-                    <h2>{selectedItem.title}</h2>
-                    <p>Price: ${selectedItem.price}</p>
-                    <img src={selectedItem.image} alt={selectedItem.title}
-                         style={{width: '400px', height: 'auto'}}/>
-                </div>
+            {loading ? (
+                <Loader/>
             ) : (
-                <p>item not found</p>
+                <>
+                    <div>
+                        {selectedItem ? (
+                            <div>
+                                <h2>{selectedItem.title}</h2>
+                                <p>Price: ${selectedItem.price}</p>
+                                <img src={selectedItem.image} alt={selectedItem.title}
+                                     style={{width: '400px', height: 'auto'}}/>
+                            </div>
+                        ) : (
+                            <p>Item not found</p>
+                        )}
+                        <Link to={`/catalog`}>
+                            <button>Back</button>
+                        </Link>
+                        <button onClick={handleClick}>Add to Cart</button>
+                    </div>
+                </>
             )}
-            <Link to={`/catalog`}>
-                <button>Back</button>
-            </Link>
-            <button>Add to Cart</button>
         </div>
-
-    )
+    );
 }
 
 export default ItemPage;

@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { DropdownButton, Dropdown} from "react-bootstrap";
-import data from "../data";
+import {getAllChairs} from "../api";
+import async from "async";
 
 const Filter = ({setFilteredProducts}) => {
-        const [initialProducts, setInitialProducts] = useState(data)
-        const applyFilterByPrice = () => {
-            const newFilteredProducts = [...initialProducts]
+
+    const applyFilterByPrice = async () => {
+        try {
+            const response =  await getAllChairs()
+            const newFilteredProducts = [...response.data];
             newFilteredProducts.sort((a, b) => b.price - a.price);
             setFilteredProducts(newFilteredProducts);
-        };
+        }
+        catch (error){
+            console.error(error)
+        }
+    }
 
-        const applyFilterByName = () => {
-            const newFilteredProducts = [...initialProducts]
+    const applyFilterByName = async () => {
+        try {
+            const response = await getAllChairs()
+            const newFilteredProducts = [...response.data];
             newFilteredProducts.sort((a, b) => {
                 const titleA = a.title.toLowerCase();
                 const titleB = b.title.toLowerCase();
@@ -26,9 +35,21 @@ const Filter = ({setFilteredProducts}) => {
             });
             setFilteredProducts(newFilteredProducts)
         }
-        const resetFilters = () => {
-            setFilteredProducts(initialProducts)
+        catch (error){
+            console.error(error)
         }
+    }
+
+    const resetFilters = async () => {
+        try {
+            const response = await getAllChairs()
+            const newFilteredProducts = [...response.data];
+            setFilteredProducts(newFilteredProducts)
+        }
+        catch (error){
+            console.error(error)
+        }
+    }
 
         return (
             <div style={{display : "flex"}}>

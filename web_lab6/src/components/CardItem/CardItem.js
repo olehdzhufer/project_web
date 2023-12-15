@@ -4,6 +4,7 @@ import React from "react";
 const { Meta } = Card;
 
 const CardItem = ({ title, image, price, id }) => {
+
     return (
         <Card hoverable style={{ width: 350, borderRadius: "20px" }} cover={<img style={{ borderRadius: "20px" }} alt="image" src={image} />}>
             <Meta title={title} />
