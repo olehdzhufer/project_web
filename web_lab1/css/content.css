@@ -1,0 +1,16 @@
+.content__inner {
+  width: 540px;
+  padding-top: 160px;
+}
+.content {
+  display: flex;
+}
+.content__image {
+  padding-top: 190px;
+  padding-left: 30px;
+}
+@media screen and (max-width: 768px) {
+  .content__image {
+    display: none;
+  }
+}
