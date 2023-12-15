@@ -8,14 +8,12 @@ import {Loader} from "../../components/Loader/Loading";
 
 const Catalog = () => {
     const [search, setSearch] = useState("");
-    const [filteredProducts, setFilteredProducts] = useState([]);
     const [chairs, setChairs] = useState([])
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getAllChairs().then(response => {
             setChairs(response.data);
-            setFilteredProducts(response.data)
         })
     }, []);
 
